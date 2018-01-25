@@ -4,7 +4,7 @@
 ## Building, Testing, and Installation
 
 You'll need the following dependencies:
-* cmake
+* meson
 * desktop-file-utils
 * intltool
 * libaccounts-glib-dev
@@ -32,17 +32,12 @@ You'll need the following dependencies:
 * python-scour
 * valac
 
-It's recommended to create a clean build environment
+Run `meson build` to configure the build environment. Change to the build directory and run `ninja test` to build
 
-    mkdir build
-    cd build/
-    
-Run `cmake` to configure the build environment and then `make` to build
+    meson build --prefix=/usr
+    cd build
 
-    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-    make
-    
-To install, use `make install`, then execute with `pantheon-photos`
+To install, use `ninja install`, then execute with `pantheon-photos`
 
-    sudo make install
+    sudo ninja install
     pantheon-photos
