@@ -1,0 +1,19 @@
+publishing_gresource = gnome.compile_resources('gresource_plugin_publishing',
+    'io.elementary.photos.plugins.publishing.gresource.xml'
+)
+
+shared_module(
+    'pantheon-photos-publishing',
+    'FacebookPublishing.vala',
+    'FlickrPublishing.vala',
+    'PicasaPublishing.vala',
+    'PiwigoPublishing.vala',
+    'shotwell-publishing.vala',
+    'YouTubePublishing.vala',
+    'Resources.vala',
+    'RESTSupport.vala',
+    publishing_gresource,
+    dependencies: elementary_photos_dep,
+    install: true,
+    install_dir: pluginsdir
+)

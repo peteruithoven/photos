@@ -1,4 +1,4 @@
-project('pantheon-photos', 'vala', 'c', version: '0.2.4')
+project('io.elementary.photos', 'vala', 'c', version: '0.2.4')
 
 add_project_arguments([
         '-Wno-discarded-qualifiers',
@@ -10,6 +10,9 @@ add_project_arguments([
     ],
     language: 'c',
 )
+
+libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'), meson.project_name())
+pluginsdir = join_paths(get_option('prefix'), get_option('libdir'), meson.project_name(), 'plugins')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -84,4 +87,11 @@ add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi
 
 subdir('data')
 subdir('src')
-subdir('docs')
+subdir('thumbnailer')
+if get_option('plugins')
+    subdir('plugins')
+endif
+subdir('po')
+if get_option('documentation')
+    subdir('docs')
+endif

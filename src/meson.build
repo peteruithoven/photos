@@ -1,14 +1,20 @@
 library_files = files(
     'plugins/PublishingInterfaces.vala',
     'plugins/SpitInterfaces.vala',
-    'plugins/TransitionsInterfaces.vala',
+    'plugins/TransitionsInterfaces.vala'
 )
 
 conf_data = configuration_data()
-conf_data.set('GETTEXT_PACKAGE', meson.project_name())
-configure_file(input : 'config.h.cmake',
-               output : 'config.h',
-               configuration : conf_data)
+conf_data.set_quoted('PROJECT_NAME', meson.project_name())
+conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf_data.set_quoted('_VERSION', meson.project_version())
+conf_data.set_quoted('_PREFIX', get_option('prefix'))
+conf_data.set_quoted('_LIB', join_paths(get_option('prefix'), get_option('libdir')))
+conf_data.set_quoted('_LIBEXECDIR', libexecdir)
+config_header = configure_file(
+    output : 'config.h',
+    configuration : conf_data
+)
 
 photos_files = files(
     'AppDirs.vala',
@@ -65,7 +71,6 @@ photos_files = files(
 
     'camera/Branch.vala',
     'camera/CameraTable.vala',
-    'camera/Camera.vala',
     'camera/GPhoto.vala',
     'camera/ImportPage.vala',
 
@@ -87,7 +92,6 @@ photos_files = files(
 
     'core/Alteration.vala',
     'core/ContainerSourceCollection.vala',
-    'core/Core.vala',
     'core/DatabaseSourceCollection.vala',
     'core/DataCollection.vala',
     'core/DataObject.vala',
@@ -129,7 +133,6 @@ photos_files = files(
     'events/EventDirectoryItem.vala',
     'events/EventPage.vala',
     'events/EventsDirectoryPage.vala',
-    'events/Events.vala',
 
     'library/Branch.vala',
     'library/FlaggedPage.vala',
@@ -158,7 +161,6 @@ photos_files = files(
     'photos/PhotoFileFormat.vala',
     'photos/PhotoFileSniffer.vala',
     'photos/PhotoMetadata.vala',
-    'photos/Photos.vala',
     'photos/PngSupport.vala',
     'photos/RawSupport.vala',
     'photos/TiffSupport.vala',
@@ -177,12 +179,10 @@ photos_files = files(
     'searches/SavedSearchDialog.vala',
     'searches/SavedSearchPage.vala',
     'searches/SearchBoolean.vala',
-    'searches/Searches.vala',
 
     'sidebar/Branch.vala',
     'sidebar/common.vala',
     'sidebar/Entry.vala',
-    'sidebar/Sidebar.vala',
     'sidebar/Tree.vala',
     'sidebar/EditableTitle.vala',
 
@@ -199,13 +199,10 @@ photos_files = files(
     'tags/HierarchicalTagIndex.vala',
     'tags/HierarchicalTagUtilities.vala',
     'tags/TagPage.vala',
-    'tags/Tags.vala',
 
     'threads/BackgroundJob.vala',
     'threads/Semaphore.vala',
     'threads/Workers.vala',
-
-    'unit/Unit.vala',
 
     'util/DragAndDropHandler.vala',
     'util/file.vala',
@@ -216,7 +213,7 @@ photos_files = files(
     'util/system.vala',
     'util/ui.vala',
     'util/Util.vala',
-    
+
     'Widgets/TransitionEffectSelector.vala',
     'Widgets/SliderAssembly.vala',
     'Widgets/ContractMenuItem.vala'
@@ -226,9 +223,20 @@ executable(
     meson.project_name(),
     photos_files,
     library_files,
+    config_header,
     icons_gresource,
     global_gresource,
     dependencies: dependencies,
     include_directories: vapi_include,
     install: true
+)
+
+# We declare a dependency to be used by plugins
+elementary_photos_dep = declare_dependency(
+    sources: [
+        library_files,
+        config_header
+    ],
+    dependencies: dependencies,
+    include_directories: [vapi_include, include_directories('.')]
 )
