@@ -37,7 +37,7 @@ Run `meson build` to configure the build environment. Change to the build direct
     meson build --prefix=/usr
     cd build
 
-To install, use `ninja install`, then execute with `pantheon-photos`
+To install, use `ninja install`, then execute with `io.elementary.photos`
 
     sudo ninja install
-    pantheon-photos
+    io.elementary.photos
