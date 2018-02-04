@@ -376,10 +376,6 @@ void main (string[] args) {
     // set up GLib environment
     GLib.Environment.set_application_name (_ (Resources.APP_TITLE));
 
-    // in both the case of running as the library or an editor, Resources is always
-    // initialized
-    Resources.init ();
-
     // since it's possible for a mount name to be passed that's not supported (and hence an empty
     // mount list), or for nothing to be on the command-line at all, only go to direct editing if a
     // filename is spec'd
@@ -389,7 +385,6 @@ void main (string[] args) {
         editing_exec (filename);
 
     // terminate mode-inspecific modules
-    Resources.terminate ();
     Application.terminate ();
     AppDirs.terminate ();
 

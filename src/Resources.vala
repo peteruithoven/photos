@@ -406,12 +406,6 @@ private string START_MULTIDAY_DATE_FORMAT_STRING = null;
 private string END_MULTIDAY_DATE_FORMAT_STRING = null;
 private string START_MULTIMONTH_DATE_FORMAT_STRING = null;
 
-public void init () {
-}
-
-public void terminate () {
-}
-
 /**
  * Helper for getting a format string that matches the
  * user's LC_TIME settings from the system.  This is intended

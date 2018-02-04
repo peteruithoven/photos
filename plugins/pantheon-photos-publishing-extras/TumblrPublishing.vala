@@ -21,7 +21,6 @@
 
 extern string hmac_sha1 (string key, string message);
 public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "tumblr.png";
     private GLib.Icon icon;
 
     public TumblrService (GLib.File resource_directory) {
