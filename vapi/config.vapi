@@ -9,8 +9,6 @@ extern const string _PREFIX;
 [CCode (cheader_filename="config.h")]
 extern const string _VERSION;
 [CCode (cheader_filename="config.h")]
-extern const string PROJECT_NAME;
-[CCode (cheader_filename="config.h")]
 extern const string GETTEXT_PACKAGE;
 [CCode (cheader_filename="config.h")]
 extern const string _LIB;
