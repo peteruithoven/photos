@@ -36,6 +36,7 @@ Run `meson build` to configure the build environment. Change to the build direct
 
     meson build --prefix=/usr
     cd build
+    ninja test
 
 To install, use `ninja install`, then execute with `io.elementary.photos`
 
